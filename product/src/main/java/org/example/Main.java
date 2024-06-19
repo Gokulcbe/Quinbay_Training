@@ -27,7 +27,20 @@ public class Main { // Interface with the User
 
             switch(choice){
                 case 1 : {
-                    prod.addProduct();
+//                    prod.addProduct();
+//                    Thread addProductThread = new Thread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            prod.addProduct();
+//                        }
+//                    });
+                    Thread addProductThread = new Thread(() -> prod.addProduct());
+                    addProductThread.start();
+                    try {
+                        addProductThread.join();
+                    } catch (InterruptedException e) {
+                        System.out.println("Thread interrupted: " + e.getMessage());
+                    }
                     break;
                 }
 
@@ -57,7 +70,14 @@ public class Main { // Interface with the User
                         System.out.println("Enter valid Stock!");
                         break;
                     }
-                    prod.updateStock(id, stock);
+                    Thread updateStockThread = new Thread(() -> prod.updateStock(id, stock));
+                    updateStockThread.start();
+                    try {
+                        updateStockThread.join();
+                    } catch (InterruptedException e) {
+                        System.out.println("Thread interrupted: " + e.getMessage());
+                    }
+//                    prod.updateStock(id, stock);
                     break;
                 }
 
@@ -75,7 +95,14 @@ public class Main { // Interface with the User
                         System.out.println("Enter Valid Price!");
                         break;
                     }
-                    prod.updatePrice(id, price);
+                    Thread updatePriceThread = new Thread(() -> prod.updatePrice(id, price));
+                    updatePriceThread.start();
+                    try {
+                        updatePriceThread.join();
+                    } catch (InterruptedException e) {
+                        System.out.println("Thread interrupted: " + e.getMessage());
+                    }
+//                    prod.updatePrice(id, price);
                     break;
                 }
 
@@ -89,7 +116,14 @@ public class Main { // Interface with the User
                     }
                     System.out.println("Enter the Quantity of products to be Purchased : ");
                     int quantity = Integer.parseInt(sc.nextLine());
-                    prod.purchaseProduct(id, quantity);
+                    Thread purchaseProductThread = new Thread(() -> prod.purchaseProduct(id, quantity));
+                    purchaseProductThread.start();
+                    try {
+                        purchaseProductThread.join();
+                    } catch (InterruptedException e) {
+                        System.out.println("Thread interrupted: " + e.getMessage());
+                    }
+//                    prod.purchaseProduct(id, quantity);
                     break;
                 }
 
@@ -101,7 +135,14 @@ public class Main { // Interface with the User
                         System.out.println("Enter valid Product Id");
                         break;
                     }
-                    prod.deleteProduct(id);
+                    Thread deleteProductThread = new Thread(() -> prod.deleteProduct(id));
+                    deleteProductThread.start();
+                    try {
+                        deleteProductThread.join();
+                    } catch (InterruptedException e) {
+                        System.out.println("Thread interrupted: " + e.getMessage());
+                    }
+//                    prod.deleteProduct(id);
                     break;
                 }
 

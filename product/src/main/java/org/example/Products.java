@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Products { // CRUD Operation with Products
-    HashMap<Integer, ProductDetails> store;
     int id;
     private static final String FILE_PATH = "/Users/gokuld/IdeaProjects/product/src/main/java/org/example/product.txt";
     private static final String temp_FILE_PATH = "/Users/gokuld/IdeaProjects/product/src/main/java/org/example/temp.txt";
@@ -39,7 +38,7 @@ public class Products { // CRUD Operation with Products
         return false;
     }
 
-    public void addProduct(){
+    public synchronized void addProduct(){
         System.out.println("Enter the Product name: ");
         String name = sc.nextLine();
         System.out.println("Enter the Product Stock: ");
@@ -105,7 +104,7 @@ public class Products { // CRUD Operation with Products
         }
     }
 
-    public void updateStock(int prodId, int stock){
+    public synchronized void updateStock(int prodId, int stock){
         FileCreation tempFile = new FileCreation("Temp");
         boolean updated = false;
         try(BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
@@ -143,7 +142,7 @@ public class Products { // CRUD Operation with Products
         getSpecificProd(prodId);
     }
 
-    public void updatePrice(int prodId, int price){
+    public synchronized void updatePrice(int prodId, int price){
 
         FileCreation tempFile = new FileCreation("Temp");
         boolean updated = false;
@@ -182,7 +181,7 @@ public class Products { // CRUD Operation with Products
         getSpecificProd(prodId);
     }
 
-    public void purchaseProduct(int prodId, int quantity){
+    public synchronized void purchaseProduct(int prodId, int quantity){
         if(quantity <= 0){
             System.out.println("Enter valid Quantity!");
             return;
@@ -196,11 +195,11 @@ public class Products { // CRUD Operation with Products
             String line;
             while((line = reader.readLine()) != null){
                 String[] details = line.split(",");
-                if(details[4].equals("true")){
-                    System.out.println("Sorry,Product Deleted Can't buy!");
-                    return;
-                }
                 if(Integer.parseInt(details[0])==prodId){
+                    if(details[4].equals("true")){
+                        System.out.println("Sorry,Product Deleted Can't buy!");
+                        return;
+                    }
                    availQuantity = Integer.parseInt(details[2]);
                    purchased = true;
                     if(availQuantity < quantity ){
@@ -236,7 +235,7 @@ public class Products { // CRUD Operation with Products
         System.out.println("Product " + prodId + " purchased Successfully!");
     }
 
-    public void deleteProduct(int prodId){
+    public synchronized void deleteProduct(int prodId){
         FileCreation tempFile = new FileCreation("Temp");
         boolean updated = false;
         try(BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
