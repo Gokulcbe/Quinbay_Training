@@ -6,15 +6,12 @@ import java.util.Scanner;
 
 public class Products { // CRUD Operation with Products
     HashMap<Integer, ProductDetails> store;
-    HashMap<Integer, Integer> purchased;
     int id;
     private static final String FILE_PATH = "/Users/gokuld/IdeaProjects/product/src/main/java/org/example/product.txt";
     private static final String temp_FILE_PATH = "/Users/gokuld/IdeaProjects/product/src/main/java/org/example/temp.txt";
     private static final String purchase_FILE_PATH = "/Users/gokuld/IdeaProjects/product/src/main/java/org/example/purchase.txt";
     Scanner sc = new Scanner(System.in);
     Products(){
-        store = new HashMap<>();
-        purchased = new HashMap<>();
         id = 1;
     }
 
@@ -28,8 +25,16 @@ public class Products { // CRUD Operation with Products
     }
 
     public boolean checkProduct(int prodId){
-        if(store.containsKey(prodId)){
-            return true;
+        try(BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while((line = reader.readLine()) != null){
+                String[] details = line.split(",");
+                if(Integer.parseInt(details[0])==prodId){
+                    return true;
+                }
+            }
+        } catch(IOException e){
+            System.out.println("Error reading from file: " + e.getMessage());
         }
         return false;
     }
@@ -49,8 +54,7 @@ public class Products { // CRUD Operation with Products
             System.out.println("Enter valid Price!");
             return;
         }
-        ProductDetails newProduct = new ProductDetails(id, name, stock, price);
-        store.put(id, newProduct);
+
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))){
             writer.write(String.format("%d,%s,%d,%d,%s%n", id, name, stock, price, "false"));
             System.out.println("Product Added Successfully! Id - " + id);
@@ -61,11 +65,10 @@ public class Products { // CRUD Operation with Products
     }
 
     public void getSpecificProd(int id){
-        if(!store.containsKey(id)){
+        if(!checkProduct(id)){
             System.out.println("Invalid Product Key!");
             return;
         } else {
-//            ProductDetails specificProd = store.get(id);
             try(BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
                 String line;
                 while((line = reader.readLine()) != null){
