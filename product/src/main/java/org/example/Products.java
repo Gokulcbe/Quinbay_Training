@@ -89,9 +89,6 @@ public class Products { // CRUD Operation with Products
     }
 
     public void getAllProd(){
-//        for(Map.Entry<Integer, ProductDetails> product : store.entrySet()){
-//            printProducts(product.getValue());
-//        }
         try(BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
             String line;
             while((line = reader.readLine()) != null){
@@ -143,14 +140,10 @@ public class Products { // CRUD Operation with Products
         tempFile.deleteFile();
 
         System.out.println("Stock updated successfully for Id : " + prodId);
-//        printProducts(updatedDetails);
         getSpecificProd(prodId);
     }
 
     public void updatePrice(int prodId, int price){
-//        ProductDetails updatedDetails = store.get(prodId);
-//        updatedDetails.prodPrice = price;
-//        store.put(prodId, updatedDetails);
 
         FileCreation tempFile = new FileCreation("Temp");
         boolean updated = false;
@@ -186,27 +179,15 @@ public class Products { // CRUD Operation with Products
         tempFile.deleteFile();
 
         System.out.println("Price updated successfully for Id : " + prodId);
-//        printProducts(updatedDetails);
         getSpecificProd(prodId);
     }
 
     public void purchaseProduct(int prodId, int quantity){
-//        ProductDetails requiredProduct = store.get(prodId);
         if(quantity <= 0){
             System.out.println("Enter valid Quantity!");
             return;
         }
-//        if(requiredProduct.prodStock < quantity){
-//            System.out.println("Required Quantity not available");
-//            return;
-//        }
-//        requiredProduct.prodStock = requiredProduct.prodStock-quantity;
-//        if(purchased.containsKey(prodId)){
-//            purchased.put(prodId, purchased.get(prodId)+quantity);
-//        } else {
-//            purchased.put(prodId, quantity);
-//        }
-//        store.put(prodId, requiredProduct);
+
         FileCreation tempFile = new FileCreation("Temp");
         int availQuantity = 0;
         boolean purchased = false;
@@ -256,29 +237,6 @@ public class Products { // CRUD Operation with Products
     }
 
     public void deleteProduct(int prodId){
-//        if(purchased.containsKey(prodId)){
-//            System.out.println("\n---------------------------------------");
-//            System.out.println("Product already Purchased!!!");
-//            System.out.println("Purchased Quantity : " + purchased.get(prodId));
-//            System.out.println("\n---------------------------------------");
-//
-//            System.out.println("Do You sure Want to delete!!! Y/N");
-//            String option = sc.nextLine();
-//            if(option.equals("Y")){
-//                store.remove(prodId);
-//                purchased.remove(prodId);
-//                System.out.println("\n---------------------------------------");
-//                System.out.println("Product " + prodId + " was deleted Successfully!");
-//                System.out.println("\n---------------------------------------");
-//            } else {
-//                System.out.println("\n---------------------------------------");
-//                System.out.println("Product not deleted!");
-//                System.out.println("\n---------------------------------------");
-//            }
-//        } else {
-//            store.remove(prodId);
-//            System.out.println("Product " + prodId + " was deleted Successfully");
-//        }
         FileCreation tempFile = new FileCreation("Temp");
         boolean updated = false;
         try(BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
@@ -315,14 +273,6 @@ public class Products { // CRUD Operation with Products
 
     public void purchaseHistory(){
         System.out.println("Purchased History : ");
-//        System.out.println("\n---------------------------------------");
-//        for(Map.Entry<Integer, Integer> purchasedProd : purchased.entrySet()){
-//            System.out.println("ProdId :" + purchasedProd.getKey() );
-//            System.out.println("PurchasedQuantity : " + purchasedProd.getValue() +"\n");
-//
-//        }
-//        System.out.println("\n---------------------------------------");
-
         try(BufferedReader reader = new BufferedReader(new FileReader(purchase_FILE_PATH))) {
             String line;
             while((line = reader.readLine()) != null){
