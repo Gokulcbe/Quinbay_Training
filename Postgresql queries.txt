@@ -1,0 +1,58 @@
+//Products Table
+
+INSERT INTO public."Product"(
+	"Prod_ID", "Prod_Name", "Prod_Stock", "Prod_Price", prod_category)
+	VALUES (2, 'Milk', 45, 343, 2);
+
+
+SELECT "Prod_ID", "Prod_Name", "Prod_Stock", "Prod_Price", prod_category
+	FROM public."Product";
+
+
+DELETE FROM public."Product"
+	WHERE "Prod_ID"=1;
+
+
+//Category Table
+
+INSERT INTO public.category(
+	category_id, category_name)
+	VALUES (2, 'Groceries');
+
+
+SELECT category_id, category_name
+	FROM public.category;
+
+
+DELETE FROM public.category
+	WHERE "category_id"=2;
+
+
+//Orders Table
+
+INSERT INTO public.orders(
+	order_id, order_price, order_quantity, order_status)
+	VALUES (2, 1056, 54, 'Delivered');
+
+
+SELECT order_id, order_price, order_quantity, order_status
+	FROM public.orders;
+
+
+DELETE FROM public.orders
+	WHERE "order_id"=1;
+
+
+//Orders_List Table
+
+INSERT INTO public.order_list(
+	orderlist_id, orders_id, product_id, orderlist_quantity, orderlist_price)
+	VALUES (2, 2, 2, 90, 547);
+
+
+SELECT orderlist_id, orders_id, product_id, orderlist_quantity, orderlist_price
+	FROM public.order_list;
+
+
+DELETE FROM public.order_list
+	WHERE "orderlist_id"=2;
