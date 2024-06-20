@@ -11,7 +11,17 @@ public class Products { // CRUD Operation with Products
     private static final String purchase_FILE_PATH = "/Users/gokuld/IdeaProjects/product/src/main/java/org/example/purchase.txt";
     Scanner sc = new Scanner(System.in);
     Products(){
-        id = 1;
+//        id = 1;
+        try(BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            String line;
+            while((line = reader.readLine()) != null){
+                String[] details = line.split(",");
+                id = Integer.parseInt(details[0]);
+            }
+        } catch(IOException e){
+            System.out.println("Error reading from file: " + e.getMessage());
+        }
+        id++;
     }
 
     static void printProducts(ProductDetails specificProd){
@@ -105,6 +115,7 @@ public class Products { // CRUD Operation with Products
     }
 
     public synchronized void updateStock(int prodId, int stock){
+
         FileCreation tempFile = new FileCreation("Temp");
         boolean updated = false;
         try(BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));

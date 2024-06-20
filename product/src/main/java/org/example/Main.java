@@ -7,8 +7,8 @@ public class Main { // Interface with the User
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int choice = 1;
-        FileCreation file = new FileCreation("Product");
-        FileCreation purchaseFile = new FileCreation("Purchase");
+//        FileCreation file = new FileCreation("Product");
+//        FileCreation purchaseFile = new FileCreation("Purchase");
         Products prod = new Products();
 
         while(choice >= 1 && choice <= 8){
@@ -28,18 +28,21 @@ public class Main { // Interface with the User
             switch(choice){
                 case 1 : {
 //                    prod.addProduct();
-//                    Thread addProductThread = new Thread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            prod.addProduct();
-//                        }
-//                    });
-                    Thread addProductThread = new Thread(() -> prod.addProduct());
+                    Thread addProductThread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("Add Product Thread Started!");
+                            prod.addProduct();
+                            System.out.println("Add Product Thread Stopped!");
+
+                        }
+                    });
+//                    Thread addProductThread = new Thread(() -> prod.addProduct());
                     addProductThread.start();
                     try {
                         addProductThread.join();
                     } catch (InterruptedException e) {
-                        System.out.println("Thread interrupted: " + e.getMessage());
+                        System.out.println("Add Product Thread interrupted: " + e.getMessage());
                     }
                     break;
                 }
@@ -70,12 +73,21 @@ public class Main { // Interface with the User
                         System.out.println("Enter valid Stock!");
                         break;
                     }
-                    Thread updateStockThread = new Thread(() -> prod.updateStock(id, stock));
+//                    Thread updateStockThread = new Thread(() -> prod.updateStock(id, stock));
+                    Thread updateStockThread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("Update Stock Thread Started!");
+                            prod.updateStock(id, stock);
+                            System.out.println("Update Stock Thread Stopped!");
+
+                        }
+                    });
                     updateStockThread.start();
                     try {
                         updateStockThread.join();
                     } catch (InterruptedException e) {
-                        System.out.println("Thread interrupted: " + e.getMessage());
+                        System.out.println("Update Stock Thread interrupted: " + e.getMessage());
                     }
 //                    prod.updateStock(id, stock);
                     break;
@@ -95,12 +107,21 @@ public class Main { // Interface with the User
                         System.out.println("Enter Valid Price!");
                         break;
                     }
-                    Thread updatePriceThread = new Thread(() -> prod.updatePrice(id, price));
+//                    Thread updatePriceThread = new Thread(() -> prod.updatePrice(id, price));
+                    Thread updatePriceThread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("Update Price Thread Started!");
+                            prod.updatePrice(id, price);
+                            System.out.println("Update Price Thread Stopped!");
+
+                        }
+                    });
                     updatePriceThread.start();
                     try {
                         updatePriceThread.join();
                     } catch (InterruptedException e) {
-                        System.out.println("Thread interrupted: " + e.getMessage());
+                        System.out.println("Update Price Thread interrupted: " + e.getMessage());
                     }
 //                    prod.updatePrice(id, price);
                     break;
@@ -116,12 +137,21 @@ public class Main { // Interface with the User
                     }
                     System.out.println("Enter the Quantity of products to be Purchased : ");
                     int quantity = Integer.parseInt(sc.nextLine());
-                    Thread purchaseProductThread = new Thread(() -> prod.purchaseProduct(id, quantity));
+//                    Thread purchaseProductThread = new Thread(() -> prod.purchaseProduct(id, quantity));
+                    Thread purchaseProductThread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("Purchase Product Thread Started!");
+                            prod.purchaseProduct(id, quantity);
+                            System.out.println("Purchase Product Thread Stopped!");
+
+                        }
+                    });
                     purchaseProductThread.start();
                     try {
                         purchaseProductThread.join();
                     } catch (InterruptedException e) {
-                        System.out.println("Thread interrupted: " + e.getMessage());
+                        System.out.println("Purchase Product Thread interrupted: " + e.getMessage());
                     }
 //                    prod.purchaseProduct(id, quantity);
                     break;
@@ -135,12 +165,21 @@ public class Main { // Interface with the User
                         System.out.println("Enter valid Product Id");
                         break;
                     }
-                    Thread deleteProductThread = new Thread(() -> prod.deleteProduct(id));
+//                    Thread deleteProductThread = new Thread(() -> prod.deleteProduct(id));
+                    Thread deleteProductThread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            System.out.println("Delete Product Thread Started!");
+                            prod.deleteProduct(id);
+                            System.out.println("Delete Product Thread Stopped!");
+
+                        }
+                    });
                     deleteProductThread.start();
                     try {
                         deleteProductThread.join();
                     } catch (InterruptedException e) {
-                        System.out.println("Thread interrupted: " + e.getMessage());
+                        System.out.println("Delete Product Thread interrupted: " + e.getMessage());
                     }
 //                    prod.deleteProduct(id);
                     break;

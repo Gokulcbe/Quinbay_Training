@@ -1,2 +1,6 @@
-1,TV,18,524,false
-2,laptop,65,2435,false
+1,TV,11,1200,false
+2,mobile,49,37,false
+3,laptop,46,21,false
+4,TV,23,12,false
+5,dfjd,12,32,true
+6,iphone,69,853,false
