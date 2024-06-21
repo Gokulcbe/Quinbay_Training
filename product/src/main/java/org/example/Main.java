@@ -3,6 +3,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+
 public class Main { // Interface with the User
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -10,7 +11,9 @@ public class Main { // Interface with the User
 //        FileCreation file = new FileCreation("Product");
 //        FileCreation purchaseFile = new FileCreation("Purchase");
         Products prod = new Products();
-
+        MongoConnect mongo = new MongoConnect();
+        mongo.getDatabase();
+        PostgresqlConnect postgre = new PostgresqlConnect();
         while(choice >= 1 && choice <= 8){
             System.out.println("Welcome to Quinbay!");
             System.out.println("Enter 1 - Add the Product");
@@ -27,7 +30,6 @@ public class Main { // Interface with the User
 
             switch(choice){
                 case 1 : {
-//                    prod.addProduct();
                     Thread addProductThread = new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -37,7 +39,6 @@ public class Main { // Interface with the User
 
                         }
                     });
-//                    Thread addProductThread = new Thread(() -> prod.addProduct());
                     addProductThread.start();
                     try {
                         addProductThread.join();
@@ -73,7 +74,6 @@ public class Main { // Interface with the User
                         System.out.println("Enter valid Stock!");
                         break;
                     }
-//                    Thread updateStockThread = new Thread(() -> prod.updateStock(id, stock));
                     Thread updateStockThread = new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -89,7 +89,6 @@ public class Main { // Interface with the User
                     } catch (InterruptedException e) {
                         System.out.println("Update Stock Thread interrupted: " + e.getMessage());
                     }
-//                    prod.updateStock(id, stock);
                     break;
                 }
 
@@ -102,12 +101,11 @@ public class Main { // Interface with the User
                         break;
                     }
                     System.out.println("Enter the price to be Updated : ");
-                    int price = Integer.parseInt(sc.nextLine());
+                    double price = Double.parseDouble(sc.nextLine());
                     if(price < 0){
                         System.out.println("Enter Valid Price!");
                         break;
                     }
-//                    Thread updatePriceThread = new Thread(() -> prod.updatePrice(id, price));
                     Thread updatePriceThread = new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -123,26 +121,15 @@ public class Main { // Interface with the User
                     } catch (InterruptedException e) {
                         System.out.println("Update Price Thread interrupted: " + e.getMessage());
                     }
-//                    prod.updatePrice(id, price);
                     break;
                 }
 
                 case 6 : {
-                    System.out.println("Enter the product ID to be Purchased : ");
-                    int id = Integer.parseInt(sc.nextLine());
-                    boolean check = prod.checkProduct(id);
-                    if(!check){
-                        System.out.println("Enter valid Product Id");
-                        break;
-                    }
-                    System.out.println("Enter the Quantity of products to be Purchased : ");
-                    int quantity = Integer.parseInt(sc.nextLine());
-//                    Thread purchaseProductThread = new Thread(() -> prod.purchaseProduct(id, quantity));
                     Thread purchaseProductThread = new Thread(new Runnable() {
                         @Override
                         public void run() {
                             System.out.println("Purchase Product Thread Started!");
-                            prod.purchaseProduct(id, quantity);
+                            prod.purchaseProduct();
                             System.out.println("Purchase Product Thread Stopped!");
 
                         }
@@ -153,7 +140,6 @@ public class Main { // Interface with the User
                     } catch (InterruptedException e) {
                         System.out.println("Purchase Product Thread interrupted: " + e.getMessage());
                     }
-//                    prod.purchaseProduct(id, quantity);
                     break;
                 }
 
@@ -165,7 +151,6 @@ public class Main { // Interface with the User
                         System.out.println("Enter valid Product Id");
                         break;
                     }
-//                    Thread deleteProductThread = new Thread(() -> prod.deleteProduct(id));
                     Thread deleteProductThread = new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -181,7 +166,6 @@ public class Main { // Interface with the User
                     } catch (InterruptedException e) {
                         System.out.println("Delete Product Thread interrupted: " + e.getMessage());
                     }
-//                    prod.deleteProduct(id);
                     break;
                 }
 

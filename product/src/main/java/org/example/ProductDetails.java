@@ -4,10 +4,10 @@ public class ProductDetails { //Product Details
     int prodId;
     String prodName;
     int prodStock;
-    int prodPrice;
+    double prodPrice;
     String flag;
 
-    ProductDetails(int prodId, String prodName, int prodStock, int prodPrice){
+    ProductDetails(int prodId, String prodName, int prodStock, double prodPrice){
         this.prodId = prodId;
         this.prodName = prodName;
         this.prodStock = prodStock;

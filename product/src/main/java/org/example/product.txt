@@ -1,6 +1,4 @@
-1,TV,11,1200,false
-2,mobile,49,37,false
-3,laptop,46,21,false
-4,TV,23,12,false
-5,dfjd,12,32,true
-6,iphone,69,853,false
+1,tv,19,200.000000,false
+2,mob,100,6343.000000,true
+3,jvjhvj,7,97.000000,false
+4,rtrd,242,12.000000,false
